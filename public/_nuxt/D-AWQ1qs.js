@@ -1,0 +1,1 @@
+import{d as a,dW as o,aA as r,o as u,a as c,c as _,b as i,_ as m}from"./ZEhFy-gV.js";import{u as p}from"./lPfAXmIE.js";const x=a({__name:"profile",setup(d){const e=p(),t=o(),n=r();return u(()=>{t.init(),e.init(),n.initOnce()}),c(()=>{t.destroy(),e.destroy()}),(f,F)=>{const s=m;return i(),_(s)}}});export{x as default};

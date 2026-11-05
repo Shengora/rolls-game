@@ -1,0 +1,8 @@
+{
+  "bot_token": "YOUR_TELEGRAM_BOT_TOKEN",
+  "webapp_url": "https://your-domain-or-tunnel.trycloudflare.com",
+  "cryptopay_token": "YOUR_CRYPTOPAY_API_TOKEN",
+  "admin_telegram_id": 1234567890,
+  "project_ton_wallet": "YOUR_TON_WALLET_ADDRESS",
+  "raw_ton_address": "YOUR_RAW_TON_HEX_ADDRESS"
+}

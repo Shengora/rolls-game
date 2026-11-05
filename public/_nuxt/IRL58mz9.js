@@ -1,0 +1,1 @@
+import{q as t,e as c,b as n,i as s,al as o}from"./ZEhFy-gV.js";const _={},r={class:"h-full flex items-center justify-center flex-1"};function a(i,f){const e=o;return n(),c("div",r,[s(e,{class:"text-[75px]","border-width":4})])}const m=t(_,[["render",a]]);export{m as _};

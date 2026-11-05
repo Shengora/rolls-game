@@ -1,0 +1,76 @@
+# ===================================================================
+# Rolls Game - Git Ignore Rules
+# Sensitive tokens, sessions, environment files and runtime state
+# ===================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment & Sensitive Credentials (CRITICAL - DO NOT REMOVE)
+.env
+.env.*
+!.env.example
+config.json
+relayer_config.json
+relayer_auth_state.json
+
+# Telegram / Telethon Session Files (CRITICAL - DO NOT REMOVE)
+*.session
+*.session-journal
+relayer/
+relayer.session
+relayer_session.session
+
+# Python Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+
+# Executables & Large Binaries
+*.exe
+cloudflared.exe
+
+# Browser Test Automation & Temporary User Data
+edge_*/
+edge_*
+
+# Temporary Scratch & One-off Test Scripts
+scratch/
+test_*.py
+inspect_*.py
+patch_*.py
+check_*.py
+find_*.py
+debug_*.py
+verify_*.py
+audit_*.py
+scratch_*.py
+*.bak
+screenshot.png
+screenshot.py
+
+# Runtime Cache & State Databases
+ton_processed_txs.json
+deposits_audit_log.json
+withdrawals_queue.json
+processed_gifts.json
+market_prices_cache.json
+audit_full_report.json
+api_endpoints.json
+all_deps.json
+*.log
+*.sqlite3
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db

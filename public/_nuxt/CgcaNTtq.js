@@ -1,0 +1,1 @@
+import{d as o,e6 as s,e7 as r,e as n,bb as c,b as _}from"./ZEhFy-gV.js";const u=o({__name:"rewards",async setup(l){let e,a;const t=s();return[e,a]=r(()=>c(t("/profile"),{replace:!0})),await e,a(),(p,i)=>(_(),n("div"))}});export{u as default};

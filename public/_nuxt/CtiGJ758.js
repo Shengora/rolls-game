@@ -1,0 +1,1 @@
+import{d as o,aN as s,c as t,b as n,_ as r}from"./ZEhFy-gV.js";import{u as _}from"./ChVySrIA.js";const y=o({__name:"history",setup(c){const a=s();return _(()=>a.params.id?"/giveaways/history":"/giveaways","giveaways-history"),(i,p)=>{const e=r;return n(),t(e)}}});export{y as default};

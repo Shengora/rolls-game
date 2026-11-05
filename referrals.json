@@ -1,0 +1,144 @@
+{
+  "referrals": {
+    "6644911092": [
+      {
+        "user_id": 8237158801,
+        "display_name": "nostole",
+        "username": "nostole",
+        "joined_at": "2026-10-30T10:00:00Z",
+        "reward_claimed": true
+      },
+      {
+        "user_id": 9911223344,
+        "display_name": "Azizbek",
+        "username": "aziz_rolls",
+        "joined_at": "2026-10-30T11:57:39.382986+00:00",
+        "reward_claimed": true
+      },
+      {
+        "user_id": 1793361489,
+        "display_name": "Azizbek",
+        "username": "aziz_rolls",
+        "joined_at": "2026-10-30T11:58:09.864537+00:00",
+        "reward_claimed": true
+      },
+      {
+        "user_id": 1793362107,
+        "display_name": "Azizbek",
+        "username": "aziz_rolls",
+        "joined_at": "2026-10-30T12:08:27.881920+00:00",
+        "reward_claimed": true
+      },
+      {
+        "user_id": 6379599,
+        "display_name": "Tester_6379599",
+        "username": "friend",
+        "joined_at": "2026-10-30T12:29:39.612733+00:00",
+        "reward_claimed": true
+      },
+      {
+        "user_id": 6494157,
+        "display_name": "Tester_6494157",
+        "username": "friend",
+        "joined_at": "2026-10-30T12:31:34.158429+00:00",
+        "reward_claimed": false
+      },
+      {
+        "user_id": 6562771,
+        "display_name": "Tester_6562771",
+        "username": "friend",
+        "joined_at": "2026-10-30T12:32:42.772417+00:00",
+        "reward_claimed": false
+      },
+      {
+        "user_id": 6665845,
+        "display_name": "Tester_6665845",
+        "username": "friend",
+        "joined_at": "2026-10-30T12:34:25.871184+00:00",
+        "reward_claimed": false
+      },
+      {
+        "user_id": 7711223344,
+        "display_name": "Ali_Friend",
+        "username": "friend",
+        "joined_at": "2026-10-30T15:39:26.377798+00:00",
+        "reward_claimed": false
+      },
+      {
+        "user_id": 8862862,
+        "display_name": "Friend_8862862",
+        "username": "friend",
+        "joined_at": "2026-10-30T15:41:03.028549+00:00",
+        "reward_claimed": false
+      },
+      {
+        "user_id": 8890199,
+        "display_name": "Tester_8890199",
+        "username": "friend",
+        "joined_at": "2026-10-30T15:41:30.201673+00:00",
+        "reward_claimed": false
+      },
+      {
+        "user_id": 8954990,
+        "display_name": "Tester_8954990",
+        "username": "friend",
+        "joined_at": "2026-10-30T15:42:35.016089+00:00",
+        "reward_claimed": false
+      }
+    ]
+  },
+  "invited_by": {
+    "8237158801": "6644911092",
+    "9911223344": "6644911092",
+    "1793361489": "6644911092",
+    "1793362107": "6644911092",
+    "6379599": "6644911092",
+    "6494157": "6644911092",
+    "6562771": "6644911092",
+    "6665845": "6644911092",
+    "7711223344": "6644911092",
+    "8862862": "6644911092",
+    "8890199": "6644911092",
+    "8954990": "6644911092"
+  },
+  "earnings": {
+    "6644911092": {
+      "unclaimed_ton": 0.0,
+      "total_earned_ton": 3.5,
+      "history": [
+        {
+          "friend_id": 7711223344,
+          "game": "PvP Roulette",
+          "win_ton": 100.0,
+          "commission_ton": 10.0,
+          "reward_ton": 1.0,
+          "timestamp": "2026-10-30T15:39:26.455444+00:00"
+        },
+        {
+          "friend_id": 7711223344,
+          "game": "PvP Roulette",
+          "win_ton": 100.0,
+          "commission_ton": 10.0,
+          "reward_ton": 1.0,
+          "timestamp": "2026-10-30T15:40:40.879725+00:00"
+        },
+        {
+          "friend_id": 8862862,
+          "game": "PvP Roulette",
+          "win_ton": 100.0,
+          "commission_ton": 10.0,
+          "reward_ton": 1.0,
+          "timestamp": "2026-10-30T15:41:03.067495+00:00"
+        },
+        {
+          "friend_id": 8862862,
+          "game": "Grand PvP",
+          "win_ton": 50.0,
+          "commission_ton": 5.0,
+          "reward_ton": 0.5,
+          "timestamp": "2026-10-30T15:41:03.081781+00:00"
+        }
+      ]
+    }
+  }
+}

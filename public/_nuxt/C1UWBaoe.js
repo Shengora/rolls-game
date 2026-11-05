@@ -1,0 +1,1 @@
+import{d as n,o as s,a as t,c as a,b as r,_}from"./ZEhFy-gV.js";import{u as c}from"./C3Swu5Vz.js";const d=n({__name:"solo",setup(i){const o=c();return s(async()=>{await Promise.all([o.init()])}),t(()=>{o.destroy()}),(u,m)=>{const e=_;return r(),a(e)}}});export{d as default};

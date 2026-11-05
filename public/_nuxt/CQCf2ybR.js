@@ -1,0 +1,1 @@
+import{d as i,u as m,d5 as u,t as l,l as d,dD as _}from"./ZEhFy-gV.js";const $=i({__name:"Timer",props:{contestEnd:{}},setup(r){const{t}=m(),o=u(r.contestEnd,s=>{const{d:e,h:a,m:c}=_(s),n=`${a}${t("base.hour_short")}:${c}${t("base.minute_short")}`;return{label:parseInt(e)>0?`${e}${t("base.day_short")}:${n}`:n}});return(s,e)=>l(d(o).label.split(":").join(" : "))}});export{$ as _};

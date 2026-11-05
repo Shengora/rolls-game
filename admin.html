@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shencas Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { background-color: #0d1117; color: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    .card { background-color: #161b22; border: 1px solid #30363d; border-radius: 12px; }
+    .tab-btn.active { background-color: #238636; color: white; }
+    input, select { background-color: #0d1117; border: 1px solid #30363d; color: white; }
+    input:focus { border-color: #58a6ff; outline: none; }
+  </style>
+</head>
+<body class="p-4 md:p-8 max-w-7xl mx-auto">
+
+  <!-- Header -->
+  <header class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-gray-800 gap-4">
+    <div>
+      <div class="flex items-center gap-3">
+        <span class="text-3xl">👑</span>
+        <h1 class="text-2xl font-bold text-white tracking-wide">Shencas Boshqaruv Paneli (Admin)</h1>
+        <span class="bg-green-900/60 text-green-400 text-xs px-2.5 py-1 rounded-full border border-green-700 font-semibold flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Jonli Tizim
+        </span>
+      </div>
+      <p class="text-sm text-gray-400 mt-1">Telegram Mini-App, PvP Ruletka va Sovg'alar Narxlari Boshqaruvi</p>
+    </div>
+    <div class="flex items-center gap-2">
+      <button onclick="loadData()" class="bg-gray-800 hover:bg-gray-700 text-white px-3.5 py-2 rounded-lg text-sm font-medium border border-gray-700 flex items-center gap-2">
+        <i class="fa-solid fa-arrows-rotate"></i> Yangilash
+      </button>
+      <a href="https://t.me/Shencasbot" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white px-3.5 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
+        <i class="fa-brands fa-telegram"></i> @Shencasbot
+      </a>
+    </div>
+  </header>
+
+  <!-- Metrics Grid -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
+    <div class="card p-4">
+      <p class="text-xs uppercase tracking-wider text-gray-400 font-semibold">Ro'yxatdan O'tganlar</p>
+      <h3 id="stat-users" class="text-2xl font-bold text-white mt-1">--</h3>
+      <p class="text-xs text-gray-400 mt-1 flex items-center gap-1"><i class="fa-solid fa-users text-blue-400"></i> Faol o'yinchilar</p>
+    </div>
+    <div class="card p-4">
+      <p class="text-xs uppercase tracking-wider text-gray-400 font-semibold">Kazino Komissiyasi (Foyda)</p>
+      <h3 id="stat-profit" class="text-2xl font-bold text-yellow-400 mt-1">-- TON</h3>
+      <p class="text-xs text-gray-400 mt-1 flex items-center gap-1"><i class="fa-solid fa-coins text-yellow-400"></i> 10% House Edge</p>
+    </div>
+    <div class="card p-4">
+      <p class="text-xs uppercase tracking-wider text-gray-400 font-semibold">Referral To'lovlari</p>
+      <h3 id="stat-referral" class="text-2xl font-bold text-purple-400 mt-1">-- TON</h3>
+      <p class="text-xs text-gray-400 mt-1 flex items-center gap-1"><i class="fa-solid fa-handshake text-purple-400"></i> Komissiyaning 10% ulushi</p>
+    </div>
+    <div class="card p-4">
+      <p class="text-xs uppercase tracking-wider text-gray-400 font-semibold">Relayer Akkaunt</p>
+      <h3 class="text-2xl font-bold text-green-400 mt-1">@tvaroq</h3>
+      <p class="text-xs text-gray-400 mt-1 flex items-center gap-1"><i class="fa-solid fa-circle-check text-green-400"></i> Telethon tinglamoqda</p>
+    </div>
+  </div>
+
+  <!-- Navigation Tabs -->
+  <div class="flex flex-wrap gap-2 mb-6 border-b border-gray-800 pb-3">
+    <button onclick="switchTab('pricing')" id="tab-btn-pricing" class="tab-btn active px-4 py-2 rounded-lg text-sm font-semibold transition">
+      <i class="fa-solid fa-tags mr-1.5"></i> 1. Giftlar Narxini Belgilash
+    </button>
+    <button onclick="switchTab('users')" id="tab-btn-users" class="tab-btn bg-gray-800 text-gray-300 px-4 py-2 rounded-lg text-sm font-semibold transition">
+      <i class="fa-solid fa-user-gear mr-1.5"></i> 2. O'yinchilar va Balans
+    </button>
+    <button onclick="switchTab('withdrawals')" id="tab-btn-withdrawals" class="tab-btn bg-gray-800 text-gray-300 px-4 py-2 rounded-lg text-sm font-semibold transition">
+      <i class="fa-solid fa-arrow-up-from-bracket mr-1.5"></i> 3. Yechib Olish Navbati
+    </button>
+    <button onclick="switchTab('pvp')" id="tab-btn-pvp" class="tab-btn bg-gray-800 text-gray-300 px-4 py-2 rounded-lg text-sm font-semibold transition">
+      <i class="fa-solid fa-dice mr-1.5"></i> 4. Jonli PvP Ruletka
+    </button>
+  </div>
+
+  <!-- TAB 1: GIFT PRICING -->
+  <div id="tab-pricing" class="space-y-6">
+    <div class="card p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h2 class="text-lg font-bold text-white">Sovg'alar Narxlari va Konvertatsiya Kurslari</h2>
+          <p class="text-sm text-gray-400">Foydalanuvchi @tvaroq relayeriga Telegram sovg'a tashlaganda avtomatik ushbu narxda qabul qilinadi.</p>
+        </div>
+        <span class="text-xs bg-blue-900/60 text-blue-300 border border-blue-700 px-2.5 py-1 rounded-full font-mono">gift_prices.json</span>
+      </div>
+
+      <form id="pricing-form" onsubmit="savePrices(event)" class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-1">Telegram Stars Kursi (1 TON necha Stars?)</label>
+            <div class="flex items-center gap-2">
+              <input type="number" step="0.1" id="stars_per_ton" class="w-full p-2.5 rounded-lg" required>
+              <span class="text-sm text-gray-400 whitespace-nowrap">Stars = 1 TON</span>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">Standart: 50 Stars = 1 TON (500 Stars sovg'a = 10 TON bo'ladi)</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-1">Kazino Komissiyasi (House Edge %)</label>
+            <div class="flex items-center gap-2">
+              <input type="number" step="1" id="casino_commission_percent" class="w-full p-2.5 rounded-lg" required>
+              <span class="text-sm text-gray-400 whitespace-nowrap">%</span>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">PvP va boshqa o'yinlarda olinadigan umumiy komissiya</p>
+          </div>
+        </div>
+
+        <h3 class="text-md font-semibold text-white pt-4 border-t border-gray-800">Unique NFT Sovg'alar Floor Narxlari (TON)</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-sm text-gray-300 mb-1">👑 Pepe Crown</label>
+            <input type="number" step="0.5" id="price_pepe_crown" class="w-full p-2.5 rounded-lg" required>
+          </div>
+          <div>
+            <label class="block text-sm text-gray-300 mb-1">🐶 Resistance Dog</label>
+            <input type="number" step="0.5" id="price_resistance_dog" class="w-full p-2.5 rounded-lg" required>
+          </div>
+          <div>
+            <label class="block text-sm text-gray-300 mb-1">🐸 Plush Pepe</label>
+            <input type="number" step="0.5" id="price_plush_pepe" class="w-full p-2.5 rounded-lg" required>
+          </div>
+          <div>
+            <label class="block text-sm text-gray-300 mb-1">🔒 Lucky Locket</label>
+            <input type="number" step="0.5" id="price_lucky_locket" class="w-full p-2.5 rounded-lg" required>
+          </div>
+          <div>
+            <label class="block text-sm text-gray-300 mb-1">🎁 Boshqa Unique Sovg'alar</label>
+            <input type="number" step="0.5" id="price_telegram_gift" class="w-full p-2.5 rounded-lg" required>
+          </div>
+          <div>
+            <label class="block text-sm text-gray-300 mb-1">🤝 Referral Ulushi (% komissiyadan)</label>
+            <input type="number" step="1" id="referral_share_percent" class="w-full p-2.5 rounded-lg" required>
+          </div>
+        </div>
+
+        <div class="pt-4 flex items-center justify-between border-t border-gray-800">
+          <span id="save-status" class="text-sm font-medium"></span>
+          <button type="submit" class="bg-green-600 hover:bg-green-500 text-white font-semibold px-6 py-2.5 rounded-lg transition flex items-center gap-2">
+            <i class="fa-solid fa-floppy-disk"></i> Narxlarni Saqlash
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TAB 2: USERS AND BALANCES -->
+  <div id="tab-users" class="space-y-6 hidden">
+    <div class="card p-6">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-bold text-white">Ro'yxatdan O'tgan Foydalanuvchilar</h2>
+        <span id="users-count" class="text-xs bg-gray-800 px-3 py-1 rounded-full text-gray-400">0 ta o'yinchi</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-gray-300">
+          <thead class="bg-gray-800/60 uppercase text-xs text-gray-400">
+            <tr>
+              <th class="p-3">Telegram ID</th>
+              <th class="p-3">Ism</th>
+              <th class="p-3">Username</th>
+              <th class="p-3">Balans (TON)</th>
+              <th class="p-3">Sovg'alari</th>
+              <th class="p-3 text-right">Amal</th>
+            </tr>
+          </thead>
+          <tbody id="users-table-body" class="divide-y divide-gray-800">
+            <tr><td colspan="6" class="p-4 text-center text-gray-500">Yuklanmoqda...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: WITHDRAWALS QUEUE -->
+  <div id="tab-withdrawals" class="space-y-6 hidden">
+    <div class="card p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h2 class="text-lg font-bold text-white">Sovg'alarni Yechib Olish Navbati</h2>
+          <p class="text-sm text-gray-400">Foydalanuvchilar o'yindan yechib olgan sovg'alari va relayer jo'natish holati</p>
+        </div>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-gray-300">
+          <thead class="bg-gray-800/60 uppercase text-xs text-gray-400">
+            <tr>
+              <th class="p-3">ID</th>
+              <th class="p-3">Telegram</th>
+              <th class="p-3">Sovg'alar</th>
+              <th class="p-3">Vaqt</th>
+              <th class="p-3">Holati</th>
+            </tr>
+          </thead>
+          <tbody id="withdrawals-table-body" class="divide-y divide-gray-800">
+            <tr><td colspan="5" class="p-4 text-center text-gray-500">Yuklanmoqda...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 4: PVP LIVE -->
+  <div id="tab-pvp" class="space-y-6 hidden">
+    <div class="card p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h2 class="text-lg font-bold text-white">Jonli Ruletka (PvP Engine)</h2>
+          <p class="text-sm text-gray-400">Raund holati, ishtirokchilar va umumiy bank</p>
+        </div>
+        <span id="pvp-status-badge" class="px-3 py-1 rounded-full text-xs font-semibold bg-yellow-900/60 text-yellow-300 border border-yellow-700">Yuklanmoqda</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <div class="bg-gray-900/80 p-3 rounded-lg border border-gray-800">
+          <span class="text-xs text-gray-500">O'yin Raqami</span>
+          <p id="pvp-game-num" class="text-xl font-bold text-white mt-0.5">--</p>
+        </div>
+        <div class="bg-gray-900/80 p-3 rounded-lg border border-gray-800">
+          <span class="text-xs text-gray-500">Umumiy Bank (Pot)</span>
+          <p id="pvp-pot" class="text-xl font-bold text-yellow-400 mt-0.5">-- TON</p>
+        </div>
+        <div class="bg-gray-900/80 p-3 rounded-lg border border-gray-800">
+          <span class="text-xs text-gray-500">Provably Fair Hash</span>
+          <p id="pvp-hash" class="text-xs font-mono text-gray-400 mt-1 truncate">--</p>
+        </div>
+      </div>
+      <h3 class="text-sm font-semibold text-gray-300 mb-2">Hozirgi Raund Ishtirokchilari:</h3>
+      <div id="pvp-players-list" class="space-y-2">
+        <p class="text-sm text-gray-500">Hech kim stavka qilmagan (room bo'sh)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Editing Balance -->
+  <div id="balance-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+    <div class="card max-w-md w-full p-6 space-y-4">
+      <h3 class="text-lg font-bold text-white">Foydalanuvchi Balansini O'zgartirish</h3>
+      <div>
+        <p class="text-sm text-gray-400">Foydalanuvchi: <span id="modal-username" class="text-white font-semibold"></span> (<span id="modal-tid"></span>)</p>
+        <p class="text-sm text-gray-400">Joriy balans: <span id="modal-cur-bal" class="text-yellow-400 font-semibold"></span> TON</p>
+      </div>
+      <div>
+        <label class="block text-sm text-gray-300 mb-1">Yangi Balans (TON):</label>
+        <input type="number" step="0.1" id="modal-new-bal" class="w-full p-2.5 rounded-lg" required>
+      </div>
+      <div class="flex items-center justify-end gap-2 pt-2">
+        <button onclick="closeModal()" class="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-sm font-medium">Bekor qilish</button>
+        <button onclick="submitNewBalance()" class="px-4 py-2 rounded-lg bg-green-600 hover:bg-green-500 text-white text-sm font-semibold">Saqlash</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentData = null;
+    let selectedTid = null;
+
+    function switchTab(name) {
+      ['pricing', 'users', 'withdrawals', 'pvp'].forEach(t => {
+        document.getElementById(`tab-${t}`).classList.add('hidden');
+        document.getElementById(`tab-btn-${t}`).classList.remove('active');
+        document.getElementById(`tab-btn-${t}`).classList.add('bg-gray-800', 'text-gray-300');
+      });
+      document.getElementById(`tab-${name}`).classList.remove('hidden');
+      document.getElementById(`tab-btn-${name}`).classList.add('active');
+      document.getElementById(`tab-btn-${name}`).classList.remove('bg-gray-800', 'text-gray-300');
+    }
+
+    async function loadData() {
+      try {
+        const resp = await fetch('/admin/api/data');
+        const data = await resp.json();
+        currentData = data;
+
+        // Metrics
+        document.getElementById('stat-users').innerText = data.users ? data.users.length : 0;
+        document.getElementById('stat-profit').innerText = (data.stats ? data.stats.total_commission_ton : 0) + ' TON';
+        document.getElementById('stat-referral').innerText = (data.stats ? data.stats.total_referral_rewards_ton : 0) + ' TON';
+
+        // Pricing form populate
+        if (data.prices) {
+          document.getElementById('stars_per_ton').value = data.prices.stars_per_ton || 50;
+          document.getElementById('casino_commission_percent').value = data.prices.casino_commission_percent || 10;
+          document.getElementById('referral_share_percent').value = data.prices.referral_share_of_commission_percent || 10;
+          
+          const ug = data.prices.unique_gifts || {};
+          document.getElementById('price_pepe_crown').value = ug.pepe_crown || 50;
+          document.getElementById('price_resistance_dog').value = ug.resistance_dog || 25;
+          document.getElementById('price_plush_pepe').value = ug.plush_pepe || 75;
+          document.getElementById('price_lucky_locket').value = ug.lucky_locket || 15;
+          document.getElementById('price_telegram_gift').value = ug.telegram_gift || 30;
+        }
+
+        // Users table
+        const uBody = document.getElementById('users-table-body');
+        document.getElementById('users-count').innerText = `${data.users ? data.users.length : 0} ta o'yinchi`;
+        if (data.users && data.users.length > 0) {
+          uBody.innerHTML = data.users.map(u => `
+            <tr class="hover:bg-gray-800/40">
+              <td class="p-3 font-mono text-gray-400">${u.telegram_id}</td>
+              <td class="p-3 font-semibold text-white">${u.display_name}</td>
+              <td class="p-3 text-blue-400">@${u.username || 'noma\'lum'}</td>
+              <td class="p-3 font-bold text-yellow-400">${u.balance_ton} TON</td>
+              <td class="p-3">${u.inventory_count} ta gift</td>
+              <td class="p-3 text-right">
+                <button onclick="openBalanceModal(${u.telegram_id}, '${u.display_name}', ${u.balance_ton})" class="bg-gray-800 hover:bg-gray-700 border border-gray-700 px-2.5 py-1 rounded text-xs text-white">
+                  Balansni o'zgartirish
+                </button>
+              </td>
+            </tr>
+          `).join('');
+        } else {
+          uBody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-gray-500">Hozircha foydalanuvchilar yo\'q</td></tr>';
+        }
+
+        // Withdrawals table
+        const wBody = document.getElementById('withdrawals-table-body');
+        if (data.withdrawals && data.withdrawals.length > 0) {
+          wBody.innerHTML = data.withdrawals.map(w => `
+            <tr class="hover:bg-gray-800/40">
+              <td class="p-3 font-mono text-xs text-gray-400">${w.id}</td>
+              <td class="p-3">
+                <a href="https://t.me/${(w.username || '').replace('@','')}" target="_blank" class="text-blue-400 hover:text-blue-300 hover:underline inline-flex items-center gap-1 font-semibold text-xs">
+                  <i class="fa-brands fa-telegram"></i> @${w.username || w.telegram_id}
+                </a>
+              </td>
+              <td class="p-3 text-white">
+                ${(w.gifts || []).map(g => `
+                  <div class="py-0.5">
+                    <span class="font-bold text-amber-300">${g.title || 'NFT'} ${g.num ? '#' + g.num : ''}</span>
+                    <span class="text-xs text-gray-400 block">${g.cost_ton || 0} TON | Fon: ${g.background || 'Standart'} | Belgi: ${g.symbol || 'Oddiy'}</span>
+                  </div>
+                `).join('') || '<span class="text-gray-500">Sovg\'a</span>'}
+              </td>
+              <td class="p-3 text-xs text-gray-500">${w.created_at ? new Date(w.created_at).toLocaleTimeString() : '--'}</td>
+              <td class="p-3">
+                <span class="px-2 py-0.5 rounded text-xs font-semibold ${w.status === 'COMPLETED' ? 'bg-green-900/60 text-green-300' : w.status === 'PENDING_ADMIN' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-yellow-900/60 text-yellow-300'}">
+                  ${w.status === 'PENDING_ADMIN' ? '⚠️ Adminga topshirildi (Qo\'lda)' : w.status === 'COMPLETED' ? '✅ Yetkazildi' : w.status}
+                </span>
+              </td>
+            </tr>
+          `).join('');
+        } else {
+          wBody.innerHTML = '<tr><td colspan="5" class="p-4 text-center text-gray-500">Yechib olish so\'rovlari yo\'q</td></tr>';
+        }
+
+        // PvP state
+        if (data.pvp) {
+          document.getElementById('pvp-game-num').innerText = '#' + (data.pvp.game_num || '--');
+          document.getElementById('pvp-pot').innerText = (data.pvp.total_prize_ton || 0) + ' TON';
+          document.getElementById('pvp-hash').innerText = data.pvp.hash || '--';
+          const badge = document.getElementById('pvp-status-badge');
+          badge.innerText = data.pvp.status || 'unknown';
+          if (data.pvp.status === 'countdown') {
+            badge.className = 'px-3 py-1 rounded-full text-xs font-semibold bg-green-900/60 text-green-300 border border-green-700';
+          } else {
+            badge.className = 'px-3 py-1 rounded-full text-xs font-semibold bg-yellow-900/60 text-yellow-300 border border-yellow-700';
+          }
+
+          const plList = document.getElementById('pvp-players-list');
+          const giftsByTid = data.pvp.gifts_by_telegram_id || {};
+          const tids = Object.keys(giftsByTid);
+          if (tids.length > 0) {
+            plList.innerHTML = tids.map(tid => {
+              const p = giftsByTid[tid];
+              return `
+                <div class="flex items-center justify-between p-2.5 bg-gray-900/50 rounded-lg border border-gray-800 text-sm">
+                  <div class="flex items-center gap-2">
+                    <span class="font-semibold text-white">${p.user_display_name}</span>
+                    <span class="text-xs text-gray-500 font-mono">(${tid})</span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <span class="text-xs text-yellow-400 font-bold">${p.win_chance_percent}% imkoniyat</span>
+                    <span class="text-xs bg-gray-800 px-2 py-0.5 rounded text-gray-300">${p.gifts ? p.gifts.length : 0} gift</span>
+                  </div>
+                </div>
+              `;
+            }).join('');
+          } else {
+            plList.innerHTML = '<p class="text-sm text-gray-500">Hozircha hech kim stavka qilmadi</p>';
+          }
+        }
+
+      } catch (e) {
+        console.error("Data load error:", e);
+      }
+    }
+
+    async function savePrices(e) {
+      e.preventDefault();
+      const statusSpan = document.getElementById('save-status');
+      statusSpan.innerText = 'Saqlanmoqda...';
+      statusSpan.className = 'text-sm text-yellow-400 font-medium';
+
+      const payload = {
+        stars_per_ton: parseFloat(document.getElementById('stars_per_ton').value),
+        casino_commission_percent: parseFloat(document.getElementById('casino_commission_percent').value),
+        referral_share_of_commission_percent: parseFloat(document.getElementById('referral_share_percent').value),
+        unique_gifts: {
+          pepe_crown: parseFloat(document.getElementById('price_pepe_crown').value),
+          resistance_dog: parseFloat(document.getElementById('price_resistance_dog').value),
+          plush_pepe: parseFloat(document.getElementById('price_plush_pepe').value),
+          lucky_locket: parseFloat(document.getElementById('price_lucky_locket').value),
+          telegram_gift: parseFloat(document.getElementById('price_telegram_gift').value)
+        }
+      };
+
+      try {
+        const resp = await fetch('/admin/api/settings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const res = await resp.json();
+        if (res.success) {
+          statusSpan.innerText = '✅ Narxlar muvaffaqiyatli saqlandi!';
+          statusSpan.className = 'text-sm text-green-400 font-medium';
+        } else {
+          statusSpan.innerText = '❌ Xatolik yuz berdi';
+          statusSpan.className = 'text-sm text-red-400 font-medium';
+        }
+      } catch (err) {
+        statusSpan.innerText = '❌ Tarmoq xatosi';
+        statusSpan.className = 'text-sm text-red-400 font-medium';
+      }
+    }
+
+    function openBalanceModal(tid, name, curBal) {
+      selectedTid = tid;
+      document.getElementById('modal-username').innerText = name;
+      document.getElementById('modal-tid').innerText = tid;
+      document.getElementById('modal-cur-bal').innerText = curBal;
+      document.getElementById('modal-new-bal').value = curBal;
+      document.getElementById('balance-modal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('balance-modal').classList.add('hidden');
+      selectedTid = null;
+    }
+
+    async function submitNewBalance() {
+      const val = parseFloat(document.getElementById('modal-new-bal').value);
+      if (isNaN(val) || val < 0) return;
+      try {
+        await fetch('/admin/api/user/balance', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ telegram_id: selectedTid, balance_ton: val })
+        });
+        closeModal();
+        loadData();
+      } catch (e) {
+        alert("Xatolik yuz berdi");
+      }
+    }
+
+    // Auto-refresh every 5 seconds
+    loadData();
+    setInterval(loadData, 5000);
+  </script>
+</body>
+</html>

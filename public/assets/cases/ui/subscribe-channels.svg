@@ -1,0 +1,20 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Img">
+<path id="Ellipse 767" d="M40 20C40 31.0457 31.0457 40 20 40C8.95431 40 0 31.0457 0 20C0 8.95431 8.95431 0 20 0C31.0457 0 40 8.95431 40 20Z" fill="url(#paint0_linear_0_6)"/>
+<rect id="Rectangle 42315" width="40" height="40" rx="12" fill="url(#paint1_linear_0_6)"/>
+<g id="Frame">
+<path id="Vector" d="M10 16.5C10 13.4624 12.4624 11 15.5 11C17.3602 11 19.0046 11.9234 20 13.3369C20.9954 11.9234 22.6398 11 24.5 11C27.5376 11 30 13.4624 30 16.5C30 24 19.9999 29.4852 19.9999 29.4852C19.9999 29.4852 10 24 10 16.5Z" fill="white"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_6" x1="-7.71228e-07" y1="-22.1429" x2="48.9797" y2="-15.0736" gradientUnits="userSpaceOnUse">
+<stop stop-color="#9042F6"/>
+<stop offset="0.552885" stop-color="#5E99F5"/>
+<stop offset="1" stop-color="#E63EAF"/>
+</linearGradient>
+<linearGradient id="paint1_linear_0_6" x1="19.3249" y1="1.01476" x2="19.3763" y2="38.567" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FB4D77"/>
+<stop offset="1" stop-color="#E90E44"/>
+</linearGradient>
+</defs>
+</svg>

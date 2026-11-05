@@ -1,0 +1,1 @@
+import{_ as i}from"./IRL58mz9.js";import{d as r,aN as c,o as u,a as m,c as a,l as p,b as t,_ as d}from"./ZEhFy-gV.js";import{u as l}from"./DLE-LwYv.js";const k=r({__name:"[id]",setup(y){const e=l(),o=c().params.id,n=e.giveawayDetail;return u(()=>{e.initDetail(o)}),m(e.destroyDetail),(f,g)=>{const s=i,_=d;return p(n)?(t(),a(_,{key:1})):(t(),a(s,{key:0}))}}});export{k as default};

@@ -1,0 +1,12 @@
+{
+  "stars_per_ton": 50.0,
+  "casino_commission_percent": 10.0,
+  "referral_share_of_commission_percent": 10.0,
+  "unique_gifts": {
+    "pepe_crown": 60.0,
+    "resistance_dog": 30.0,
+    "plush_pepe": 85.0,
+    "lucky_locket": 20.0,
+    "telegram_gift": 35.0
+  }
+}

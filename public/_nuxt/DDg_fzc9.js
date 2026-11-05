@@ -1,0 +1,1 @@
+import{C as s}from"./ZEhFy-gV.js";const u=e=>({getRewardStatus:async a=>await e.getRewardStatus({spinId:a}),resolveReward:async({spinId:a,action:t})=>{const r=await e.resolveReward({spinId:a,action:t});return s(r)?(await e.reload(),r):(e.onResolveError(r),r)}});export{u as c};
