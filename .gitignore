@@ -1,6 +1,5 @@
 # ===================================================================
 # Rolls Game - Git Ignore Rules
-# Sensitive tokens, sessions, environment files and runtime state
 # ===================================================================
 
 # Byte-compiled / optimized / DLL files
@@ -8,7 +7,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Environment & Sensitive Credentials (CRITICAL - DO NOT REMOVE)
+# Environment & Sensitive Credentials
 .env
 .env.*
 !.env.example
@@ -16,7 +15,7 @@ config.json
 relayer_config.json
 relayer_auth_state.json
 
-# Telegram / Telethon Session Files (CRITICAL - DO NOT REMOVE)
+# Telegram / Telethon Session Files
 *.session
 *.session-journal
 relayer/
@@ -37,7 +36,7 @@ cloudflared.exe
 edge_*/
 edge_*
 
-# Temporary Scratch & One-off Test Scripts
+# Temporary Scratch, Migration & One-off Test Scripts
 scratch/
 test_*.py
 inspect_*.py
@@ -48,6 +47,25 @@ debug_*.py
 verify_*.py
 audit_*.py
 scratch_*.py
+analyze_bundle.py
+apply_*.py
+clone.py
+diagnose*.py
+dl_*.py
+download_*.py
+extract_*.py
+fix_*.py
+get_*.py
+list_*.py
+live_*.py
+print_*.py
+replace_*.py
+run_tunnel.py
+setup_*.py
+track_*.py
+update_*.py
+watch_*.py
+deep_audit_*.py
 *.bak
 screenshot.png
 screenshot.py
@@ -61,6 +79,7 @@ market_prices_cache.json
 audit_full_report.json
 api_endpoints.json
 all_deps.json
+referrals.json
 *.log
 *.sqlite3
 
